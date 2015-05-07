@@ -1,7 +1,12 @@
 #!/bin/bash
 
 callerdir=${PWD}
-script=$(readlink -f $0)
+unamestr=`uname`
+if [[ "$unamestr" == 'Darwin' ]]; then
+	script=$(greadlink -f $0)
+else
+	script=$(readlink -f $0)
+fi
 scriptdir=$(dirname $script)
 
 set -x

@@ -1,15 +1,30 @@
 #!/bin/bash
 
+platform=
+unamestr=`uname`
+if [[ "$unamestr" == "Darwin" ]]; then
+	platform="darwin"
+fi
 count=0
 failed=0
 start=`date +%s%N`
-failfile=$(tempfile)
+if [[ "$platform" == "darwin" ]]; then
+	failfile=$(mktemp -q -t tmp)
+else
+	failfile=$(tempfile)
+fi	
 
 run_single() {
 	i=$1
 	pushd $i > /dev/null 2> /dev/null
 	echo -n "?"
-	tmpfailfile=$(tempfile)
+	unamestr=`uname`
+	if [[ "$unamestr" == "Darwin" ]]; then
+		tmpfailfile=$(mktemp -q -t {i})
+	else
+		tmpfailfile=$(tempfile)
+
+	fi
 	echo "* $i:" >> $tmpfailfile
 	../../verify_single.sh >> $tmpfailfile
 	if [ $? -eq 0 ]; then

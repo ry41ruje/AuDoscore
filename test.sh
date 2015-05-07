@@ -7,7 +7,13 @@
 #fi
 
 callerdir=${PWD}
-script=$(readlink -f $0)
+unamestr=`uname`
+if [[ "$unamestr" == 'Darwin' ]]; then
+	script=$(greadlink -f $0)
+else
+	script=$(readlink -f $0)
+fi
+
 scriptdir=$(dirname $script)
 
 function info {
@@ -124,7 +130,7 @@ function scanTestFiles {
 		do	files+=("$entry")
 		done
 		
-		file_count=$(ls -1 $junit_folder| grep -v ^1 | wc -l)
+		file_count=$(ls -1 $junit_folder| grep -v ^1 | wc -l | awk '{ printf "%d\n", $0 }')
 		
 		if [ "${file_count}" == "1" ]; then
 			testclass=$(basename ${files[0]} ".java")
