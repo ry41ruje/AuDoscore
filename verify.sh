@@ -9,7 +9,7 @@ count=0
 failed=0
 start=`date +%s%N`
 if [[ "$platform" == "darwin" ]]; then
-	failfile=$(mktemp -q -t tmp)
+	failfile=$(mktemp -t tmp)
 else
 	failfile=$(tempfile)
 fi	
@@ -20,7 +20,7 @@ run_single() {
 	echo -n "?"
 	unamestr=`uname`
 	if [[ "$unamestr" == "Darwin" ]]; then
-		tmpfailfile=$(mktemp -q -t {i})
+		tmpfailfile=$(mktemp -t tmp)
 	else
 		tmpfailfile=$(tempfile)
 

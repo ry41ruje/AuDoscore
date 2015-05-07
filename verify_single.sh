@@ -29,8 +29,12 @@ for i in `find expected/ -type f`; do
 		cp $testfile $i
 	fi
 done;
-
-rm -rf $(readlink -f test.latest)
+unamestr=`uname`
+if [[ "$unamestr" == 'Darwin' ]]; then
+	rm -rf $(greadlink -f test.latest)
+else
+	rm -rf $(readlink -f test.latest)
+fi
 rm test.latest
 
 exit $error
