@@ -130,7 +130,7 @@ public class JUnitPointsMerger {
 
 			double localscore = getLocalPoint((Boolean) usedresult.get("success"), (String) usedresult.get("id"), (Boolean) usedresult.get("fromSecret"));
 			localpoints += localscore;
-			localSummary += ((Boolean) usedresult.get("success")) ? "✓" : "✗";
+			localSummary += ((Boolean) usedresult.get("success")) ? "\u2713" : "\u2717";
 
 			localSummary += String.format(" %1$6.2f", localscore) + " | ";
 			localSummary += (String) usedresult.get("desc");

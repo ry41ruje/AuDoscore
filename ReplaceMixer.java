@@ -70,7 +70,7 @@ public class ReplaceMixer extends AbstractProcessor {
 					tree.accept(new Merger());
 
 					TreePath path = trees.getPath(each);
-					if (!imported[isCleanroom ? 0 : 1]) { 
+					if (!imported[isCleanroom ? 0 : 1]) {
 						imported[isCleanroom ? 0 : 1] = true;
 						java.util.List imports = path.getCompilationUnit().getImports();
 						for (Object o : imports) {
@@ -124,14 +124,14 @@ public class ReplaceMixer extends AbstractProcessor {
 
 		private String getTypesAsString(final ArrayList<String> types,
 				final List<JCTypeParameter> typeParameters) {
-			
+
 			final ArrayList<String> typesCopy = new ArrayList<>(types);
 			for (int i = 0; i < typesCopy.size(); ++i) {
 				String typeAsString = typesCopy.get(i);
 				for (int j = 0; j < typeParameters.size(); ++j) {
 					typeAsString = typeAsString.replaceAll(
 							"\\b" + typeParameters.get(j).name.toString() + "\\b",
-							"§_typeParam_" + j);
+							"\u00A7_typeParam_" + j);
 				}
 				typesCopy.set(i, typeAsString);
 			}
@@ -238,7 +238,7 @@ public class ReplaceMixer extends AbstractProcessor {
 			tree.defs = appendAll(tree.defs, cleanMethods);
 			tree.defs = appendAll(tree.defs, cleanFields);
 			tree.defs = appendAll(tree.defs, cleanInnerClasses);
-			
+
 			result = tree;
 		}
 	}
